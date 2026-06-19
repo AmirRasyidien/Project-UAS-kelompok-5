@@ -1,5 +1,5 @@
 #include <iostream>
-using namwspace std;
+using namespace std;
 
 // struktur data pasien
 struct pasien{
@@ -7,7 +7,7 @@ struct pasien{
 	string nama;
 	int umur;
 	string alamat;
-	string keluhan
+	string keluhan;
 };
 
 // node linked list pasien
@@ -25,7 +25,7 @@ void tambahPasien(){
 	cout << "\n=====Tambah Data Pasien=====\n";
 	cout << "ID Pasien :" ;
 	cin >> baru->data.id;
-	cin.igore();
+	cin.ignore();
 
 	cout << "Nama      :";
 	getline(cin, baru->data.nama;
