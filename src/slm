@@ -19,22 +19,22 @@ node* head = NULL;
 void tambahPasien() {
     node* baru = new node;
 
-    cout << "\n=== Tambah Data Pasien ===\n";
-    cout << "ID Pasien   : ";
+    cout << "\n===== Tambah Data Pasien =====\n";
+    cout << "ID      : ";
     cin >> baru->data.id;
     cin.ignore();
 
-    cout << "Nama        : ";
+    cout << "Nama    : ";
     getline(cin, baru->data.nama);
 
-    cout << "Umur        : ";
+    cout << "Umur    : ";
     cin >> baru->data.umur;
     cin.ignore();
 
-    cout << "Alamat      : ";
+    cout << "Alamat  : ";
     getline(cin, baru->data.alamat);
 
-    cout << "Keluhan     : ";
+    cout << "Keluhan : ";
     getline(cin, baru->data.keluhan);
 
     baru->next = NULL;
@@ -52,7 +52,29 @@ void tambahPasien() {
     cout << "Data pasien berhasil ditambahkan.\n";
 }
 
+void tampilkanPasien(){
+    if(head == NULL) {
+        cout << "\nData Pasien Kosong.\n";
+        return;
+    }
+
+    cout << "\n===== Daftar Nama Pasien =====\n";
+    node* temp = head;
+    while(temp != NULL){
+        cout << "ID      : " << temp->data.id << endl;
+        cout << "Nama    : " << temp->data.nama << endl;
+        cout << "Umur    : " << temp->data.umur << endl;
+        cout << "Alamat  : " << temp->data.alamat << endl;
+        cout << "Keluhan : " << temp->data.keluhan << endl;
+        cout << "-------------------------------\n";
+
+        temp = temp->next;
+    }
+}
+    
+
 int main(){
     tambahPasien();
+    tampilkanPasien();
     return 0;
 }
