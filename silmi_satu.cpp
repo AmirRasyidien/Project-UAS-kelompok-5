@@ -28,7 +28,7 @@ void tambahPasien(){
 	cin.ignore();
 
 	cout << "Nama      :";
-	getline(cin, baru->data.nama;
+	getline(cin, baru->data.nama);
 
 	cout << "Umur      :";
 	cin >> baru->data.umur;
@@ -40,7 +40,21 @@ void tambahPasien(){
 	cout << "Keluhan   :";
 	getline(cin, baru->data.keluhan);
 
+	baru->next = NULL;
+
+	if (head == NULL) {
+        head = baru;
+    } else {
+        node* temp = head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = baru;
+    }
+
+    cout << "Data pasien berhasil ditambahkan.\n";
 }
+
 
 int main() {
 	tambahPasien();
