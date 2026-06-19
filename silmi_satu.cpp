@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-// struktur data pasien
 struct pasien{
 	int id;
 	string nama;
@@ -10,7 +9,6 @@ struct pasien{
 	string keluhan;
 };
 
-// node linked list pasien
 struct node{
 	pasien data;
 	node* next;
@@ -18,7 +16,6 @@ struct node{
 
 node* head = NULL;
 
-// tambah pasien
 void tambahPasien(){
 	node* baru = new node;
 
@@ -28,7 +25,7 @@ void tambahPasien(){
 	cin.ignore();
 
 	cout << "Nama      :";
-	getline(cin, baru->data.nama;
+	getline(cin, baru->data.nama);
 
 	cout << "Umur      :";
 	cin >> baru->data.umur;
