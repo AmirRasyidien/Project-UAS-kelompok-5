@@ -119,6 +119,7 @@ void menuUtama(){
         cout << "1. Tambah Data Pasien\n";
         cout << "2. Tampilkan Data Pasien\n";
         cout << "3. Update data Pasien\n";
+        cout << "0. Keluar\n";
         cout << "=============================\n";
         cout << "Pilih Menu   : ";
         cin >> pilihan;
@@ -132,6 +133,9 @@ void menuUtama(){
                 break;
             case 3 :
                 updatePasien();
+                break;
+            case 0 :
+                cout << "Program Selesai.\n";
                 break;
             default :
                 cout << "Pilihan tidak Valid.\n";
