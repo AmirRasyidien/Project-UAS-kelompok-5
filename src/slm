@@ -19,22 +19,22 @@ node* head = NULL;
 void tambahPasien() {
     node* baru = new node;
 
-    cout << "\n=== Tambah Data Pasien ===\n";
-    cout << "ID Pasien   : ";
+    cout << "\n===== Tambah Data Pasien =====\n";
+    cout << "ID      : ";
     cin >> baru->data.id;
     cin.ignore();
 
-    cout << "Nama        : ";
+    cout << "Nama    : ";
     getline(cin, baru->data.nama);
 
-    cout << "Umur        : ";
+    cout << "Umur    : ";
     cin >> baru->data.umur;
     cin.ignore();
 
-    cout << "Alamat      : ";
+    cout << "Alamat  : ";
     getline(cin, baru->data.alamat);
 
-    cout << "Keluhan     : ";
+    cout << "Keluhan : ";
     getline(cin, baru->data.keluhan);
 
     baru->next = NULL;
@@ -49,10 +49,103 @@ void tambahPasien() {
         temp->next = baru;
     }
 
-    cout << "Data pasien berhasil ditambahkan.\n";
+    cout << "\nData pasien berhasil ditambahkan.\n";
 }
 
+void tampilkanPasien(){
+    if(head == NULL) {
+        cout << "\nData Pasien Kosong.\n";
+        return;
+    }
+
+    cout << "\n===== Daftar Nama Pasien =====\n";
+    node* temp = head;
+    while(temp != NULL){
+        cout << "ID      : " << temp->data.id << endl;
+        cout << "Nama    : " << temp->data.nama << endl;
+        cout << "Umur    : " << temp->data.umur << endl;
+        cout << "Alamat  : " << temp->data.alamat << endl;
+        cout << "Keluhan : " << temp->data.keluhan << endl;
+        cout << "-------------------------------\n";
+
+        temp = temp->next;
+    }
+}
+
+void updatePasien(){
+    if(head == NULL){
+        cout << "\nData Pasien Kosong.\n";
+        return;
+    }
+
+    int idCari;
+    cout << "\nMasukkan ID yang akan diupdate : ";
+    cin >> idCari;
+    cin.ignore();
+
+    node* temp = head;
+
+    while(temp != NULL){
+        if(temp->data.id == idCari){
+            cout << "\nData ditemukan.\n";
+
+            cout << "Nama Baru    : ";
+            getline(cin, temp->data.nama);
+
+            cout << "Umur Baru    : ";
+            cin >> temp->data.umur;
+            cin.ignore();
+
+            cout << "Alamat Baru  : ";
+            getline(cin, temp->data.alamat);
+
+            cout << "Keluhan Baru : ";
+            getline(cin, temp->data.keluhan);
+
+            cout << "Data Berhasil diperbarui.\n";
+            return;
+        }
+        temp = temp->next;
+    }
+    cout << "ID pasien tidak ditremukan.\n";
+}
+
+void menuUtama(){
+    int pilihan;
+    do {
+        cout << "\n=============================\n";
+        cout << " SISTEM MANAJEMEN DATA PASIEN ";
+        cout << "\n=============================\n";
+        cout << "1. Tambah Data Pasien\n";
+        cout << "2. Tampilkan Data Pasien\n";
+        cout << "3. Update data Pasien\n";
+        cout << "0. Keluar\n";
+        cout << "=============================\n";
+        cout << "Pilih Menu   : ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1 :
+                tambahPasien();
+                break;
+            case 2:
+                tampilkanPasien();
+                break;
+            case 3 :
+                updatePasien();
+                break;
+            case 0 :
+                cout << "Program Selesai.\n";
+                break;
+            default :
+                cout << "Pilihan tidak Valid.\n";
+        }
+    } while(pilihan != 0);
+}
+
+    
+
 int main(){
-    tambahPasien();
+   menuUtama();
     return 0;
 }
