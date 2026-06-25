@@ -110,6 +110,37 @@ void updatePasien(){
     cout << "ID pasien tidak ditremukan.\n";
 }
 
+void hapusPasien(){
+    if(head == NULL){
+        cout << "\nData Pasien Kosong.\n";
+        return;
+    }
+
+    int idCari;
+    cout << "\nMasukan ID yang akan dihapus : ";
+    cin >> idCari;
+
+    node* temp = head;
+    node* prev = NULL;
+
+    while(temp != NULL){
+        if(temp->data.id == idCari){
+            if(prev == NULL){
+                head = temp->next;
+            } else {
+                prev->next = temp->next;
+            }
+
+            delete temp;
+            cout << "Data Pasien Berhasil dihapus.\n";
+            return;
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+    cout << "ID Pasien tidak ditemukan.\n";
+}
+
 void menuUtama(){
     int pilihan;
     do {
@@ -118,7 +149,8 @@ void menuUtama(){
         cout << "\n=============================\n";
         cout << "1. Tambah Data Pasien\n";
         cout << "2. Tampilkan Data Pasien\n";
-        cout << "3. Update data Pasien\n";
+        cout << "3. Update Data Pasien\n";
+        cout << "4. Hapus Data Pasien\n";
         cout << "0. Keluar\n";
         cout << "=============================\n";
         cout << "Pilih Menu   : ";
@@ -134,6 +166,9 @@ void menuUtama(){
             case 3 :
                 updatePasien();
                 break;
+            case 4 :
+                hapusPasien();
+                break;
             case 0 :
                 cout << "Program Selesai.\n";
                 break;
@@ -142,8 +177,6 @@ void menuUtama(){
         }
     } while(pilihan != 0);
 }
-
-    
 
 int main(){
    menuUtama();
