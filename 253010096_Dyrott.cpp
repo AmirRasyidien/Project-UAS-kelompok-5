@@ -17,8 +17,6 @@ struct nodeDokter {
 
 nodeDokter* rootDokter = NULL;
 
-
-// Membuat node baru
 nodeDokter* buatNodeDokter(dokter d) {
     nodeDokter* baru = new nodeDokter;
     baru->data = d;
@@ -27,7 +25,6 @@ nodeDokter* buatNodeDokter(dokter d) {
     return baru;
 }
 
-// Insert dokter ke BST berdasarkan ID
 nodeDokter* insertDokter(nodeDokter* root, dokter d) {
     if (root == NULL) {
         return buatNodeDokter(d);
@@ -66,7 +63,6 @@ void tambahDokter() {
     cout << "\nData dokter berhasil ditambahkan.\n";
 }
 
-// Tampilkan semua dokter (in-order = terurut by ID)
 void tampilkanInOrder(nodeDokter* root) {
     if (root == NULL) return;
 
@@ -91,7 +87,6 @@ void tampilkanDokter() {
     tampilkanInOrder(rootDokter);
 }
 
-// Cari dokter berdasarkan ID
 nodeDokter* cariDokterByID(nodeDokter* root, int id) {
     if (root == NULL) return NULL;
 
@@ -127,8 +122,6 @@ void cariDokter() {
     }
 }
 
-// Cari dokter berdasarkan spesialisasi (preorder search,
-// karena tidak terurut berdasarkan spesialisasi)
 bool cariSpesialisasi(nodeDokter* root, string spesialisasi, bool& ketemu) {
     if (root == NULL) return ketemu;
 
@@ -168,7 +161,6 @@ void cariDokterBySpesialisasi() {
     }
 }
 
-// Hapus dokter berdasarkan ID (standar BST delete)
 nodeDokter* cariNodeTerkecil(nodeDokter* root) {
     while (root->kiri != NULL) {
         root = root->kiri;
@@ -228,7 +220,7 @@ void hapusDokter() {
         cout << "\nID dokter tidak ditemukan.\n";
     }
 }
-// Menu Modul Dokter (Tree)
+
 void menuDokter() {
     int pilih;
 
