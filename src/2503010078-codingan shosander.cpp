@@ -15,8 +15,8 @@ struct Edge {
 
 class RumahSakitGraph {
 private:
-    
-    unordered_map<string, vector<Edge> graph;
+    // PERBAIKAN: Menambahkan '>' yang kurang pada deklarasi unordered_map
+    unordered_map<string, vector<Edge>> graph;
 
 public:
     void tambahUnit(string unit) {
@@ -25,21 +25,16 @@ public:
         }
     }
 
-    
     void tambahJalur(string asal, string tujuan, int waktu_tempuh) {
         tambahUnit(asal);
         tambahUnit(tujuan);
         graph[asal].push_back({tujuan, waktu_tempuh});
     }
 
-   
     void cariRuteTercepat(string awal, string tujuan) {
-        
         unordered_map<string, int> waktu_minimum;
-        
         unordered_map<string, string> rute_sebelumnya;
 
-        
         for (auto const& [unit, list_edge] : graph) {
             waktu_minimum[unit] = INT_MAX;
             rute_sebelumnya[unit] = "";
@@ -47,7 +42,6 @@ public:
 
         priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
 
-        
         waktu_minimum[awal] = 0;
         pq.push({0, awal});
 
@@ -56,13 +50,10 @@ public:
             string unit_sekarang = pq.top().second;
             pq.pop();
 
-            
             if (unit_sekarang == tujuan) break;
 
-            
             if (waktu_sekarang > waktu_minimum[unit_sekarang]) continue;
 
-            
             for (const auto& edge : graph[unit_sekarang]) {
                 int total_waktu = waktu_sekarang + edge.waktu_tempuh;
 
@@ -108,7 +99,6 @@ int main() {
         rs_digital.tambahUnit(u);
     }
 
-    
     rs_digital.tambahJalur("UGD", "Laboratorium", 3);
     rs_digital.tambahJalur("UGD", "Ruang Operasi", 5);
     rs_digital.tambahJalur("Laboratorium", "Apotek", 2);
