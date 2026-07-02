@@ -1,5 +1,10 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <queue>
+#include <unordered_map>
+#include <climits>
+#include <algorithm>
 using namespace std;
 
 struct pasien {
@@ -137,12 +142,23 @@ void menuPasien(){
         cin >> pilihan;
 
         switch (pilihan) {
-            case 1 : tambahPasien(); break;
-            case 2: tampilkanPasien(); break;
-            case 3 : updatePasien(); break;
-            case 4 : hapusPasien(); break;
-            case 0 : cout << "Kembali ke Menu Utama...\n"; break;
-            default : cout << "Pilihan tidak Valid.\n";
+            case 1 : 
+                tambahPasien(); 
+                break;
+            case 2: 
+                tampilkanPasien(); 
+                break;
+            case 3 : 
+                updatePasien(); 
+                break;
+            case 4 : 
+                hapusPasien(); 
+                break;
+            case 0 : 
+                cout << "Kembali ke Menu Utama...\n"; 
+                break;
+            default : 
+                cout << "Pilihan tidak Valid.\n";
         }
     } while(pilihan != 0);
 }
@@ -230,12 +246,23 @@ void menuQueue() {
         cin >> pilih;
 
         switch (pilih) {
-            case 1: ambilNomor(); break;
-            case 2: panggilNomor(); break;
-            case 3: lihatAntreanBerikutnya(); break;
-            case 4: tampilAntrean(); break;
-            case 5: cout << "\nKembali ke Menu Utama..." << endl; break;
-            default: cout << "\nPilihan tidak tersedia!" << endl;
+            case 1: 
+                ambilNomor(); 
+                break;
+            case 2: 
+                panggilNomor(); 
+                break;
+            case 3: 
+                lihatAntreanBerikutnya(); 
+                break;
+            case 4: 
+                tampilAntrean(); 
+                break;
+            case 5: 
+                cout << "\nKembali ke Menu Utama..." << endl; 
+                break;
+            default: 
+                cout << "\nPilihan tidak tersedia!" << endl;
         }
     } while (pilih != 5);
 }
@@ -446,16 +473,144 @@ void menuDokter() {
         cin >> pilih;
 
         switch (pilih) {
-            case 1: tambahDokter(); break;
-            case 2: tampilkanDokter(); break;
-            case 3: cariDokter(); break;
-            case 4: cariDokterBySpesialisasi(); break;
-            case 5: hapusDokter(); break;
-            case 6: cout << "\nKembali ke Menu Utama..." << endl; break;
-            default: cout << "\nPilihan tidak tersedia!" << endl;
+            case 1: 
+                tambahDokter(); 
+                break;
+            case 2: 
+                tampilkanDokter(); 
+                break;
+            case 3: 
+                cariDokter(); 
+                break;
+            case 4: 
+                cariDokterBySpesialisasi(); 
+                break;
+            case 5: 
+                hapusDokter(); 
+                break;
+            case 6: 
+                cout << "\nKembali ke Menu Utama..." << endl; 
+                break;
+            default: 
+                cout << "\nPilihan tidak tersedia!" << endl;
         }
     } while (pilih != 6);
 }
+
+struct Edge {
+    string tujuan;
+    int waktu_tempuh;
+};
+
+class RumahSakitGraph {
+private:
+    unordered_map<string, vector<Edge>> graph;
+
+public:
+    void tambahUnit(string unit) {
+        if (graph.find(unit) == graph.end()) {
+            graph[unit] = vector<Edge>();
+        }
+    }
+
+    void tambahJalur(string asal, string tujuan, int waktu_tempuh) {
+        tambahUnit(asal);
+        tambahUnit(tujuan);
+        graph[asal].push_back({tujuan, waktu_tempuh});
+    }
+
+    void cariRuteTercepat(string awal, string tujuan) {
+        unordered_map<string, int> waktu_minimum;
+        unordered_map<string, string> rute_sebelumnya;
+
+        for (auto const& [unit, list_edge] : graph) {
+            waktu_minimum[unit] = INT_MAX;
+            rute_sebelumnya[unit] = "";
+        }
+
+        priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
+
+        waktu_minimum[awal] = 0;
+        pq.push({0, awal});
+
+        while (!pq.empty()) {
+            int waktu_sekarang = pq.top().first;
+            string unit_sekarang = pq.top().second;
+            pq.pop();
+
+            if (unit_sekarang == tujuan) break;
+
+            if (waktu_sekarang > waktu_minimum[unit_sekarang]) continue;
+
+            for (const auto& edge : graph[unit_sekarang]) {
+                int total_waktu = waktu_sekarang + edge.waktu_tempuh;
+
+                if (total_waktu < waktu_minimum[edge.tujuan]) {
+                    waktu_minimum[edge.tujuan] = total_waktu;
+                    rute_sebelumnya[edge.tujuan] = unit_sekarang;
+                    pq.push({total_waktu, edge.tujuan});
+                }
+            }
+        }
+
+        if (waktu_minimum[tujuan] == INT_MAX) {
+            cout << "[ERROR] Jalur rujukan tidak tersedia atau unit terisolasi." << endl;
+            return;
+        }
+
+        vector<string> jalur_rujukan;
+        string unit_aktif = tujuan;
+
+        while (unit_aktif != "") {
+            jalur_rujukan.push_back(unit_aktif);
+            unit_aktif = rute_sebelumnya[unit_aktif];
+        }
+
+        reverse(jalur_rujukan.begin(), jalur_rujukan.end());
+
+        cout << " [RUTE DITEMUKAN] " << endl;
+        for (size_t i = 0; i < jalur_rujukan.size(); ++i) {
+            cout << jalur_rujukan[i];
+            if (i < jalur_rujukan.size() - 1) {
+                cout << " -> ";
+            }
+        }
+        cout << "\nEstimasi Waktu Tempuh: " << waktu_minimum[tujuan] << " Menit" << endl;
+    }
+};
+
+void rute (){
+    RumahSakitGraph rs_digital;
+
+    vector<string> units = {"UGD", "Laboratorium", "Apotek", "Ruang Operasi", "ICU", "Poliklinik"};
+    for (const string& u : units) {
+        rs_digital.tambahUnit(u);
+    }
+
+    rs_digital.tambahJalur("UGD", "Laboratorium", 3);
+    rs_digital.tambahJalur("UGD", "Ruang Operasi", 5);
+    rs_digital.tambahJalur("Laboratorium", "Apotek", 2);
+    rs_digital.tambahJalur("Laboratorium", "Ruang Operasi", 4);
+    rs_digital.tambahJalur("Ruang Operasi", "ICU", 2);
+    rs_digital.tambahJalur("Apotek", "ICU", 6);
+    rs_digital.tambahJalur("Poliklinik", "Apotek", 4);
+
+    string asal_rujukan, tujuan_rujukan;
+
+    cin.ignore();
+
+    cout << "\n=== SISTEM RUJUKAN DIGITAL RUMAH SAKIT ===\n";
+    cout << "Masukkan Unit Asal   : ";
+    getline(cin, asal_rujukan);
+
+    cout << "Masukkan Unit Tujuan : ";
+    getline(cin, tujuan_rujukan);
+
+    cout << endl;
+
+    rs_digital.cariRuteTercepat(asal_rujukan, tujuan_rujukan);
+}
+
 
 int main() {
     int menu;
@@ -466,7 +621,7 @@ int main() {
         cout << "\n1. Modul Manajemen Pasien";
         cout << "\n2. Modul Antrean Pelayanan";
         cout << "\n3. Modul Jadwal Dokter";
-        cout << "\n4. Modul Rujukan & Pemetaan Unit - KOSONG";
+        cout << "\n4. Modul Rujukan & Pemetaan";
         cout << "\n0. Keluar Aplikasi";
         cout << "\n=================================================";
         cout << "\nPilih Modul : ";
@@ -483,7 +638,7 @@ int main() {
                 menuDokter();
                 break;
             case 4:
-                cout << "\n[!] Modul ini sedang dikerjakan oleh Soshander.\n";
+                rute();
                 break;
             case 0:
                 cout << "\nTerima kasih telah menggunakan Sistem Rumah Sakit Digital.\n";
