@@ -32,11 +32,11 @@ Proyek ini dikerjakan secara berkelompok. Berikut adalah susunan tim kami besert
 
 | Peran | Nama | Tugas & Tanggung Jawab |
 | :--- | :--- | :--- |
-| **Ketua** | Amir Rasyidien Soekandar | `[Isi tugas dan tanggung jawab Amir di sini]` |
-| **Anggota 1** | Silmi | `[Isi tugas dan tanggung jawab Silmi di sini]` |
-| **Anggota 2** | Tata | `[Isi tugas dan tanggung jawab Tata di sini]` |
-| **Anggota 3** | Dyraj | `[Isi tugas dan tanggung jawab Dyraj di sini]` |
-| **Anggota 4** | Soshander | `[Isi tugas dan tanggung jawab Soshander di sini]` |
+| **Ketua** | Amir Rasyidien Soekandar | Lead Developer, bertanggung jawab melakukan analisis kebutuhan sistem, merancang struktur program, mengelola repository GitHub, membuat menu utama. |
+| **Anggota 1** | Silmi | Mengembangkan Modul Manajemen Pasien menggunakan Linked List, meliputi fitur tambah, tampil, ubah, dan hapus data pasien. Menggabungkan seluruh modul., menyusun laporan. |
+| **Anggota 2** | Tata | Mengembangkan Modul Antrean Pelayanan menggunakan Queue, meliputi pengambilan nomor antrean, pemanggilan antrean, melihat antrean berikutnya, dan menampilkan seluruh antrean. |
+| **Anggota 3** | Dyraj | Mengembangkan Modul Jadwal Dokter menggunakan Binary Search Tree (BST), meliputi tambah, tampil, cari berdasarkan ID dan spesialisasi, serta hapus data dokter. Membuat ppt presentasi. |
+| **Anggota 4** | Soshander | Mengembangkan Modul Rujukan Rumah Sakit menggunakan Graph dan Algoritma Dijkstra untuk menentukan jalur tercepat antar unit rumah sakit, serta membantu proses pengujian aplikasi. |
 
 ## 🛠️ Langkah-langkah Menjalankan Program
 
